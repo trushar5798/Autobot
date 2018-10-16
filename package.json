@@ -9,6 +9,7 @@
   "author": "Truhsar Patel",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "weather-js": "^2.0.0"
   }
 }
