@@ -21,13 +21,9 @@ restService.post("/echo", function(req, res) {
       ? req.body.result.parameters.q
       : "Seems like some problem. Speak again.";
   return res.json({
-    "speech": speech,
-    "messages": [
-        {
-          "speech": speech
-        }
-      ],
-    "source": "autobot"
+    speech: speech,
+    displayText: speech,
+    source: "autobot"
   });
 });
 
