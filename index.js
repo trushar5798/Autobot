@@ -21,6 +21,7 @@ restService.post("/echo", function(req, res) {
       ? req.body.queryResult.parameters.q
       : "Seems like some problem. Speak again.";
   return res.json({
+    fulfillmentText: "displayed&spoken response",
     fulfillmentMessages: [
       {
         text: {
