@@ -31,19 +31,7 @@ restService.post("/echo", function(req, res) {
         }
       ]
     });
-  } else {
-    var speech = "Seems like some problem. Speak again.h";
-    return res.json({
-      fulfillmentMessages: [
-        {
-          text: {
-            text: [speech]
-          }
-        }
-      ]
-    });
-  }
-  if (req.body.queryResult.action.slice(0, 7) == "weather") {
+  } else if (req.body.queryResult.action.slice(0, 7) == "weather") {
     var address = req.body.queryResult.parameters.address.city
       ? req.body.queryResult.parameters.address.city
       : null;
