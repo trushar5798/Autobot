@@ -1,0 +1,14 @@
+{
+  "name": "autobot",
+  "version": "1.0.0",
+  "description": "Autobot chatbot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Truhsar Patel",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
