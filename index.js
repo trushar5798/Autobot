@@ -22,9 +22,7 @@ restService.post("/echo", function(req, res) {
       : "Seems like some problem. Speak again.";
   return res.json({
     //speech: speech,
-    text: {
-      "text": speech
-    },
+    text: speech,
     source: "autobot"
   });
 });
