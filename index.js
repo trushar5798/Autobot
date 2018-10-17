@@ -108,7 +108,7 @@ restService.post("/echo", function(req, res) {
         : null;
         console.log(datetime);
 
-        weather.find({ search: location, degreeType: "C" }, function(err, result) {
+        weather.find({ search: address, degreeType: "C" }, function(err, result) {
           if (err) console.log(err);
           var skytext = null;
           result[0].forecast.forEach(function(element) {
@@ -148,7 +148,7 @@ restService.post("/echo", function(req, res) {
               verb = "will be";
             }
           }
-          response =
+          var response =
             day +
             ", In " +
             result[0].location.name +
@@ -174,8 +174,8 @@ restService.post("/echo", function(req, res) {
         });
     //var text = getWeatherInfo(address, datetime);
     //console.log(getWeatherInfo(address, datetime));
-    console.log(text);
-    return res.json({
+    //console.log(text);
+    /*return res.json({
       fulfillmentMessages: [
         {
           text: {
@@ -183,7 +183,7 @@ restService.post("/echo", function(req, res) {
           }
         }
       ]
-    });
+    });*/
   } else {
     var speech = "Seems like some problem. Speak again.";
     return res.json({
