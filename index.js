@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var weather = require("weather-js");
+var Bing = require('node-bing-api')({ accKey: "fa91a9a8a67e4a0496e472be415cea1b" });
 
 const restService = express();
 
@@ -98,10 +99,6 @@ restService.post("/echo", function(req, res) {
       ? req.body.queryResult.parameters.address.country
       : address;
       console.log("address"+address);
-    //address =
-    //  req.body.queryResult.parameters.address.admin-area.toString()
-    //    ? req.body.queryResult.parameters.address.admin-area.toString()
-    //    : address;
     var datetime =
       req.body.queryResult.parameters.datetime.toString()
         ? req.body.queryResult.parameters.datetime.slice(0, 10)
@@ -168,22 +165,25 @@ restService.post("/echo", function(req, res) {
                 }
               ]
             });
-          //console.log(result);
-          //console.log(response+"1");
-
         });
-    //var text = getWeatherInfo(address, datetime);
-    //console.log(getWeatherInfo(address, datetime));
-    //console.log(text);
-    /*return res.json({
-      fulfillmentMessages: [
-        {
-          text: {
-            text: [text]
-          }
-        }
-      ]
-    });*/
+  } else if(req.body.queryResult.parameters.websearch) {
+    var search = req.body.queryResult.parameters.websearch;
+    Bing.web(search, {
+        count: 10,  // Number of results (max 50)
+        offset: 3   // Skip first 3 results
+      }, function(error, res, body){
+        var ser;
+        ser = "<div class='card-title'><a href='"+body.webPages.value[0].url+"' target='_blank'>"+body.webPages.value[0].name+"</a></div>";
+        return res.json({
+          fulfillmentMessages: [
+            {
+              text: {
+                text: [ser]
+              }
+            }
+          ]
+        });
+      });
   } else {
     var speech = "Seems like some problem. Speak again.";
     return res.json({
