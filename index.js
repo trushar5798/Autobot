@@ -114,7 +114,7 @@ restService.post("/echo", function(req, res) {
         offset: 3   // Skip first 3 results
       }, function(error, res1, body){
 
-        ser = body.webPages.value[0].name;
+        ser = body.webPages.value[1].name;
         return res.json({
           fulfillmentMessages: [
             {
