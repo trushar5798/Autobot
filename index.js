@@ -114,7 +114,7 @@ restService.post("/echo", function(req, res) {
         offset: 3   // Skip first 3 results
       }, function(error, res1, body){
 
-        ser = "<div class='card-title'><a href='"+body.webPages.value[0].url+"' target='_blank'>"+body.webPages.value[0].name+"</a></div>";
+        ser = body.webPages.value[0].name;
         return res.json({
           fulfillmentMessages: [
             {
