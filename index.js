@@ -3,7 +3,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var weather = require("weather-js");
-var Bing = require('node-bing-api')({ accKey: "fa91a9a8a67e4a0496e472be415cea1b" });
 
 const restService = express();
 
@@ -106,26 +105,7 @@ restService.post("/echo", function(req, res) {
               ]
             });
         });
-  } else if(req.body.queryResult.parameters.websearch) {
-    var search = req.body.queryResult.parameters.websearch;
-    var ser;
-    Bing.web(search, {
-        count: 10,  // Number of results (max 50)
-        offset: 3   // Skip first 3 results
-      }, function(error, res1, body){
-
-        ser = body.webPages.value[1].name;
-        return res.json({
-          fulfillmentMessages: [
-            {
-              text: {
-                text: [ser]
-              }
-            }
-          ]
-        });
-      });
-  } else {
+  }  else {
     var speech = "Seems like some problem. Speak again.";
     return res.json({
       fulfillmentMessages: [
