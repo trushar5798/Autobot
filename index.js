@@ -15,66 +15,6 @@ restService.use(
 
 restService.use(bodyParser.json());
 
-function getWeatherInfo(location, datetime) {
-  var response;
-  weather.find({ search: location, degreeType: "C" }, function(err, result) {
-    if (err) console.log(err);
-    var skytext = null;
-    result[0].forecast.forEach(function(element) {
-      //console.log(element);
-      if (datetime == element.date) {
-        skytext = element.skytextday;
-      }
-    });
-    var currentdate = new Date().getDate();
-    var otherdate = new Date(datetime).getDate();
-    var day, verb;
-    if (currentdate - otherdate == 0) {
-      day = "Today";
-      verb = "is";
-    } else if (currentdate - otherdate == -1) {
-      day = "Tomorrow";
-      verb = "will be";
-    } else if (currentdate - otherdate == -2) {
-      day = "The day after Tomorrow";
-      verb = "will be";
-    } else if (currentdate - otherdate == 1) {
-      day = "Yesterday";
-      verb = "was";
-    } else if (currentdate - otherdate == 2) {
-      day = "The day before Yesterday";
-      verb = "was";
-    } else if (currentdate - otherdate > 2) {
-      if (skytext == null) {
-        skytext = result[0].forecast[0].skytextday;
-        day = "That day";
-        verb = "was";
-      }
-    } else if (currentdate - otherdate < -2) {
-      if (skytext == null) {
-        skytext = result[0].forecast[4].skytextday;
-        day = "That day";
-        verb = "will be";
-      }
-    }
-    response =
-      day +
-      ", In " +
-      result[0].location.name +
-      " weather condition " +
-      verb +
-      " " +
-      skytext +
-      " and Current Temerature is " +
-      result[0].current.temperature +
-      "°C.";
-    //console.log(result);
-    //console.log(response+"1");
-
-  });
-  console.log(response);
-}
-
 restService.post("/echo", function(req, res) {
   if (
     req.body.queryResult &&
@@ -168,11 +108,12 @@ restService.post("/echo", function(req, res) {
         });
   } else if(req.body.queryResult.parameters.websearch) {
     var search = req.body.queryResult.parameters.websearch;
+    var ser;
     Bing.web(search, {
         count: 10,  // Number of results (max 50)
         offset: 3   // Skip first 3 results
-      }, function(error, res, body){
-        var ser;
+      }, function(error, res1, body){
+
         ser = "<div class='card-title'><a href='"+body.webPages.value[0].url+"' target='_blank'>"+body.webPages.value[0].name+"</a></div>";
         return res.json({
           fulfillmentMessages: [
