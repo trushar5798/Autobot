@@ -114,7 +114,7 @@ restService.post("/echo", function(req, res) {
         offset: 3   // Skip first 3 results
       }, function(error, res1, body){
 
-        ser = body.webPages.value[0].url;
+        ser = "asddsa";
         return res.json({
           fulfillmentMessages: [
             {
