@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var weather = require("weather-js");
-var Bing = require('node-bing-api')({ accKey: "fa91a9a8a67e4a0496e472be415cea1b" });
+var Bing = require('node-bing-api')({ accKey: "0865b6bbe0734fdbb829698e605ca91a" });
 
 const restService = express();
 
